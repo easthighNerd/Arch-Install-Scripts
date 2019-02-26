@@ -147,11 +147,11 @@ else
 	arch-chroot /mnt
 fi
 
-echo 'Please press [Enter] once step 2 has completed'
-read ENTER
-case ENTER in
-	*);;
-esac
+#echo 'Please press [Enter] once step 2 has completed'
+#read ENTER
+#case ENTER in
+#	*);;
+#esac
 
 umount -R /mnt
 
