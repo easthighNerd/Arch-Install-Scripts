@@ -95,4 +95,8 @@ if [[ $LVMLUKS = 'Yes' ]]; then
 	umount /run/lvm
 fi
 
+if [ -e ./step-2.sh ]; then
+	rm ./step-2.sh
+fi
+
 exit
