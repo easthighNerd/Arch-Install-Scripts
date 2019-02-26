@@ -26,6 +26,10 @@ do
 	esac
 done
 
+if [[ $PARTITION = 'LVM on LUKS BIOS' ]] || [[ $PARTITION = 'LVM on LUKS EFI' ]]; then
+	LVMLUKS="Yes"
+fi
+
 if [[ $LVMLUKS = 'Yes' ]]; then
 	mkdir /run/lvm && mount --bind /hostrun/lvm /run/lvm
 fi
