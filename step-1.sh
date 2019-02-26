@@ -1,4 +1,6 @@
-ls /sys/firmware/efi/efivars
+ls /sys/firmware/efi/efivars && clear && echo 'This system is capable of using EFI'
+
+sleep 1
 
 timedatectl set-ntp true
 
