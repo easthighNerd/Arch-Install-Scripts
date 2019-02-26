@@ -126,15 +126,15 @@ done
 
 if [[ $NETWORK = 'WiFi' ]]; then
 	if [[ $EFIBIOS = 'EFI' ]]; then
-		pacstrap /mnt base base-devel git wget nano grub $CPU-ucode efibootmgr sudo dialog wpa_supplicant
+		pacstrap /mnt base base-devel git wget nano grub $CPU\-ucode efibootmgr sudo dialog wpa_supplicant
 	else
-		pacstrap /mnt base base-devel git wget nano grub $CPU-ucode sudo dialog wpa_supplicant
+		pacstrap /mnt base base-devel git wget nano grub $CPU\-ucode sudo dialog wpa_supplicant
 	fi
 else
 	if [[ $EFIBIOS = 'EFI' ]]; then
-		pacstrap /mnt base base-devel git wget nano grub $CPU-ucode efibootmgr sudo
+		pacstrap /mnt base base-devel git wget nano grub $CPU\-ucode efibootmgr sudo
 	else
-		pacstrap /mnt base base-devel git wget nano grub $CPU-ucode sudo
+		pacstrap /mnt base base-devel git wget nano grub $CPU\-ucode sudo
 	fi
 fi
 
@@ -142,7 +142,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 if [[ $PARTITION = 'LVM on LUKS with BIOS' ]] || [[ $PARTITION = 'LVM on LUKS with EFI' ]]; then
 	mkdir /mnt/hostrun && mount --bind /run /mnt/hostrun
-	arch chroot /mnt /bin/bash
+	arch-chroot /mnt /bin/bash
 else
 	arch-chroot /mnt
 fi
