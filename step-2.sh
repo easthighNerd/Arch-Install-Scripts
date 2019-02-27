@@ -14,10 +14,10 @@ case "$SDX" in
 esac
 
 echo 'Please reselect your partition setup'
-select PARTITION in 'BIOS' 'UEFI' 'LVM on LUKS with BIOS' 'LVM on LUKS with EFI'
+select PARTITION in 'BIOS' 'UEFI' 'LVM on LUKS with BIOS' 'LVM on LUKS with UEFI'
 do
 	case $PARTITION in
-		'BIOS'|'UEFI'|'LVM on LUKS with BIOS'|'LVM on LUKS with EFI')
+		'BIOS'|'UEFI'|'LVM on LUKS with BIOS'|'LVM on LUKS with UEFI')
 			break
 			;;
 		*)
@@ -70,7 +70,7 @@ if [[ $PARTITION = 'LVM on LUKS with BIOS' ]]; then
 	grub-install --target=1386-pc --boot-directory=/boot /dev/sdx
 fi
 
-if [[ $PARTITION = 'UEFI' ]] || [[ $PARTITION = 'LVM on LUKS with EFI' ]]; then
+if [[ $PARTITION = 'UEFI' ]] || [[ $PARTITION = 'LVM on LUKS with UEFI' ]]; then
 	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --removable
 fi
 
@@ -91,12 +91,12 @@ fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-if [[ $LVMLUKS = 'Yes' ]]; then
-	umount /run/lvm
-fi
-
 if [ -e ./step-2.sh ]; then
 	rm ./step-2.sh
 fi
 
-exit
+if [[ $LVMLUKS = 'Yes' ]]; then
+	umount /run/lvm && exit
+else
+	exit
+fi

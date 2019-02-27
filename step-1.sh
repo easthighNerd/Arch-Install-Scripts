@@ -17,10 +17,10 @@ echo 'Please remember to pick GPT' && sleep 2
 cfdisk -z /dev/$SDX
 
 echo 'Please select your partition setup'
-select PARTITION in 'BIOS' 'UEFI' 'LVM on LUKS with BIOS' 'LVM on LUKS with EFI'
+select PARTITION in 'BIOS' 'UEFI' 'LVM on LUKS with BIOS' 'LVM on LUKS with UEFI'
 do
 	case $PARTITION in
-		'BIOS'|'UEFI'|'LVM on LUKS with BIOS'|'LVM on LUKS with EFI')
+		'BIOS'|'UEFI'|'LVM on LUKS with BIOS'|'LVM on LUKS with UEFI')
 			break
 			;;
 		*)
@@ -65,7 +65,7 @@ if [[ $PARTITION = 'LVM on LUKS with BIOS' ]]; then
 	swapon /dev/MyVolGroup/swap
 fi
 
-if [[ $PARTITION = 'LVM on LUKS with EFI' ]]; then
+if [[ $PARTITION = 'LVM on LUKS with UEFI' ]]; then
 	cryptsetup luksFormat --type luks2 /dev/$SDX\2
 	cryptsetup open /dev/$SDX\2 cryptlvm
 	pvcreate /dev/mapper/cryptlvm
@@ -142,7 +142,7 @@ fi
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-if [[ $PARTITION = 'LVM on LUKS with BIOS' ]] || [[ $PARTITION = 'LVM on LUKS with EFI' ]]; then
+if [[ $PARTITION = 'LVM on LUKS with BIOS' ]] || [[ $PARTITION = 'LVM on LUKS with UEFI' ]]; then
 	mkdir /mnt/hostrun && mount --bind /run /mnt/hostrun
 	arch-chroot /mnt /bin/bash
 else
