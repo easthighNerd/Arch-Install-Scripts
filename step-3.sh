@@ -4,7 +4,7 @@ case "$ARCHIE" in
 	*);;
 esac
 
-useradd --create-home $ARCHIE && passwd $ARCHIE && gpasswd --add $ARCHIE sudo
+useradd --create-home $ARCHIE && passwd $ARCHIE && gpasswd --add $ARCHIE wheel
 
 EDITOR=nano visudo
 
